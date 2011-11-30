@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-26(%date{ISO8601} [%thread]) %-5level %logger{32} - %msg %ex{full}%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<File>aq.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>aq.%d{yyyy-MM-dd_HH-mm}.log.zip</FileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%-26(%d{HH:mm:ss,SSS} [%thread]) %-5level %logger{32} - %msg%n</pattern>
+		</encoder>
+
+	</appender>
+
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+
+</configuration>
