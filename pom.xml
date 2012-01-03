@@ -8,6 +8,11 @@
 	<name>verify parent project</name>
 	<modules>
 		<module>aspect-verify</module>
+		<module>tx-verify</module>
+		<module>messaging-verify</module>
+		<module>concurrent-verify</module>
+		<module>ioc-verify</module>
+		<module>misc-verify</module>
 	</modules>
 
 	<properties>
@@ -60,6 +65,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 

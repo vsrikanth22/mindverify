@@ -13,7 +13,7 @@ public class TracedAspect {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Pointcut("(execution(* *.*(..)) || call(* *..*.*(..)) || initialization(*..*.new(..)))  && !within(TracedAspect)")
+	@Pointcut("(execution(* *.*(..)) || call(* *..*.*(..)) || initialization(*..*.new(..)))  && within(@Aspect *)")
 	public void traced() {
 	};
 	
