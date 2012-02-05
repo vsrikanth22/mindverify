@@ -13,6 +13,7 @@
 		<module>concurrent-verify</module>
 		<module>ioc-verify</module>
 		<module>misc-verify</module>
+		<module>version-manager</module>
 	</modules>
 
 	<properties>
