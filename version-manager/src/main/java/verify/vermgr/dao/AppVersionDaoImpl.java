@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -12,7 +13,6 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
 import verify.vermgr.model.AppVersion;
-import verify.vermgr.model.Scope;
 
 public class AppVersionDaoImpl implements AppVersionDao {
 
@@ -26,23 +26,21 @@ public class AppVersionDaoImpl implements AppVersionDao {
 	public void register(final AppVersion appVersion) {
 
 		jdbcTemplate.update(
-				"insert into app_version(app_name, scope, major_version, minor_version) values (?, ?, ?, ?)",
+				"insert into app_version(app_name, major_version, minor_version) values (?, ?, ?)",
 				new PreparedStatementSetter() {
 					@Override
 					public void setValues(PreparedStatement ps) throws SQLException {
 						ps.setString(1, appVersion.getAppCode());
-						ps.setString(2, appVersion.getScope().getScope());
-						ps.setString(3, appVersion.getMajorVersion());
-						ps.setLong(4, appVersion.getMinorVersion());
-
+						ps.setString(2, appVersion.getMajorVersion());
+						ps.setLong(3, appVersion.getMinorVersion());
 					}
 				});
 
 	}
 
 	@Override
-	public AppVersion get(final String appName, final String scope) {
-		return jdbcTemplate.queryForObject("", new Object[] { appName, scope }, new int[] { Types.VARCHAR,
+	public AppVersion get(final String appName) {
+		return jdbcTemplate.queryForObject("select * from app_version where app_name = ? ", new Object[] { appName }, new int[] {
 				Types.VARCHAR }, new RowMapper<AppVersion>() {
 
 			@Override
@@ -50,9 +48,8 @@ public class AppVersionDaoImpl implements AppVersionDao {
 
 				AppVersion appVersion = new AppVersion();
 				appVersion.setAppCode(rs.getString("app_name"));
-				appVersion.setScope(Scope.valueOf(rs.getString("scope")));
 				appVersion.setMajorVersion(rs.getString("major_version"));
-				appVersion.setMinorVersion(rs.getLong("minor_version"));
+				appVersion.setMinorVersion(rs.getInt("minor_version"));
 				return appVersion;
 			}
 		});
@@ -61,18 +58,21 @@ public class AppVersionDaoImpl implements AppVersionDao {
 	@Override
 	public void update(final AppVersion appVersion) {
 		jdbcTemplate.update(
-				"update app_version set major_version = ?, minor_version =? where app_name =? and scope = ?",
+				"update app_version set major_version = ?, minor_version =? where app_name =? ",
 				new PreparedStatementSetter() {
 					@Override
 					public void setValues(PreparedStatement ps) throws SQLException {
 						ps.setString(1, appVersion.getMajorVersion());
 						ps.setLong(2, appVersion.getMinorVersion());
 						ps.setString(3, appVersion.getAppCode());
-						ps.setString(4, appVersion.getScope().getScope());
-
 					}
 				});
 
+	}
+
+	@Override
+	public List<String> getAppkeys() {
+		return jdbcTemplate.queryForList("select app_name from app_version", String.class);
 	}
 
 }

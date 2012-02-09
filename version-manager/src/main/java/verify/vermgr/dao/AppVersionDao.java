@@ -1,5 +1,7 @@
 package verify.vermgr.dao;
 
+import java.util.List;
+
 import verify.vermgr.model.AppVersion;
 
 public interface AppVersionDao {
@@ -12,8 +14,10 @@ public interface AppVersionDao {
 	 */
 	public void register(AppVersion appVersion);
 
-	public AppVersion get(String appName, String scope);
+	public AppVersion get(String appName);
 
 	public void update(AppVersion appVersion);
+	
+	public List<String> getAppkeys();
 
 }

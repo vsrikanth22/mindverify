@@ -4,11 +4,18 @@ public class AppVersion {
 
 	private String appCode;
 
-	private Scope scope;
+	// private Scope scope;
 
 	private String majorVersion;
 
-	private Long minorVersion;
+	private int minorVersion = 0;
+
+	public AppVersion() {}
+
+	public AppVersion(String appCode, String majorVersion) {
+		this.appCode = appCode;
+		this.majorVersion = majorVersion;
+	}
 
 	public String getAppCode() {
 		return appCode;
@@ -16,14 +23,6 @@ public class AppVersion {
 
 	public void setAppCode(String appCode) {
 		this.appCode = appCode;
-	}
-
-	public Scope getScope() {
-		return scope;
-	}
-
-	public void setScope(Scope scope) {
-		this.scope = scope;
 	}
 
 	public String getMajorVersion() {
@@ -34,14 +33,17 @@ public class AppVersion {
 		this.majorVersion = majorVersion;
 	}
 
-	public Long getMinorVersion() {
+	public int getMinorVersion() {
 		return minorVersion;
 	}
 
-	public void setMinorVersion(Long minorVersion) {
+	public void setMinorVersion(int minorVersion) {
 		this.minorVersion = minorVersion;
 	}
-	
-	
+
+	public AppVersion increment() {
+		this.minorVersion += 1;
+		return this;
+	}
 
 }

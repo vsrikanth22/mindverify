@@ -14,4 +14,15 @@ public enum Scope {
 		return scope;
 	}
 
+	public static Scope value(String scope) {
+		if (scope != null) {
+			for (Scope b : Scope.values()) {
+				if (scope.equalsIgnoreCase(b.scope)) {
+					return b;
+				}
+			}
+		}
+		throw new IllegalArgumentException("The scope" + scope + "is not existed.");
+	}
+
 }
