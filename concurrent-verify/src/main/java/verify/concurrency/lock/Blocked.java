@@ -8,6 +8,7 @@ public class Blocked implements Runnable {
 	public void run() {
 		System.out.println("Waiting for f() in LockInterruptibly");
 		interruptibly.f();
+		System.out.println(Thread.currentThread().getState());
 		System.out.println("Broken out of blocked call");
 	}
 }

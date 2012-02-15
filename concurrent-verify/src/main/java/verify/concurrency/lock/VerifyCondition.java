@@ -18,11 +18,12 @@ public class VerifyCondition {
 
 	public void put() throws InterruptedException {
 		lock.lock();
+
 		System.out.println("put get the lock");
 		try {
 			for (int i = 0; i < 200; i++) {
 				objects.add(new Object());
-				// Thread.sleep(100);
+				 Thread.sleep(10000);
 			}
 
 			ready.signal();
@@ -38,7 +39,8 @@ public class VerifyCondition {
 		System.out.println("take get the lock");
 		try {
 			while (objects.size() <= 100) {
-				ready.await();
+				
+				//ready.await();
 				// Thread.sleep(5000);
 			}
 
@@ -63,7 +65,6 @@ public class VerifyCondition {
 			@Override
 			public void run() {
 				try {
-
 					System.out.println(new Date());
 					// condition.take();
 					condition.put();
@@ -74,6 +75,8 @@ public class VerifyCondition {
 				}
 			}
 		});
+		
+		thread1.setName("put");
 
 		Thread thread2 = new Thread(new Runnable() {
 
@@ -90,10 +93,20 @@ public class VerifyCondition {
 				}
 			}
 		});
+		
+		thread2.setName("take");
 
-		thread2.start();
-		Thread.sleep(100);
+	
+		System.out.println(thread1.getName() + thread1.getState());
+		System.out.println(thread2.getName() + thread2.getState());
+		
+		
 		thread1.start();
+		Thread.sleep(100);
+		thread2.start();
+
+		System.out.println(thread1.getName() + thread1.getState());
+		System.out.println(thread2.getName() + thread2.getState());
 		// Thread.currentThread().join();
 	}
 
