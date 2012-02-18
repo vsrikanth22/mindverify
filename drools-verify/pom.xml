@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>verify-parent</artifactId>
+		<groupId>com.statestr.verify</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>drools-verify</artifactId>
+	<name>drools verify</name>
+
+
+	<properties>
+		<jboss.jbpm.version>5.2.0.Final</jboss.jbpm.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-flow</artifactId>
+			<version>${jboss.jbpm.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId> 
+			<version>${jboss.jbpm.version}</version>
+		</dependency>
+		  
+	<!-- 	
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bam</artifactId>
+			<version>${jboss.jbpm.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task</artifactId>
+			<version>${jboss.jbpm.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-seam</artifactId>
+					<groupId>org.jboss.seam</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>hibernate-entitymanager</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	 -->
+	</dependencies>
+</project>
