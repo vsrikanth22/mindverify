@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_personItem" structureRef="verify.jboss.jbpm.quickstarts.Person" />
+
+  <process processType="Private" isExecutable="true" id="com.sample.script" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <extensionElements>
+     <tns:import name="verify.jboss.jbpm.quickstarts.HelloService" />
+     <tns:import name="verify.jboss.jbpm.quickstarts.Person" />
+    </extensionElements>
+    <!-- process variables -->
+    <property id="person" itemSubjectRef="_personItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <scriptTask id="_2" name="Script" >
+      <script>HelloService.getInstance().sayHello(person.getName());
+System.out.println("It is a true path");
+			</script>
+    </scriptTask>
+    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_5" name="Script" >
+      <script>HelloService.getInstance().sayHello(person.getName());
+System.out.println("It is a false path");</script>
+    </scriptTask>
+    <parallelGateway id="_6" name="Gateway" gatewayDirection="Converging" />
+    <endEvent id="_7" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_4-_2" sourceRef="_4" targetRef="_2" name="trueConstraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return (person.getName() == "john");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" name="falseConstraint" tns:priority="3" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return (person.getName() != "john");</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_5-_6" sourceRef="_5" targetRef="_6" />
+    <sequenceFlow id="_2-_6" sourceRef="_2" targetRef="_6" />
+    <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.sample.script" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="37" y="156" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="295" y="105" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="159" y="155" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="276" y="244" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="456" y="194" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="587" y="198" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_4-_2" >
+        <di:waypoint x="183" y="179" />
+        <di:waypoint x="335" y="129" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
+        <di:waypoint x="61" y="180" />
+        <di:waypoint x="183" y="179" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="183" y="179" />
+        <di:waypoint x="316" y="268" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_6" >
+        <di:waypoint x="316" y="268" />
+        <di:waypoint x="480" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_6" >
+        <di:waypoint x="335" y="129" />
+        <di:waypoint x="480" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_7" >
+        <di:waypoint x="480" y="218" />
+        <di:waypoint x="611" y="222" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
