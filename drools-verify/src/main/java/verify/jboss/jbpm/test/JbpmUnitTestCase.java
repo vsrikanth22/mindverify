@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class JbpmUnitTestCase extends Assert {
 	
-	Logger logger = LoggerFactory.getLogger(getClass());
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected StatefulKnowledgeSession createKnowledgeSession(String... process) {
 		KnowledgeBase kbase = createKnowledgeBase(process);

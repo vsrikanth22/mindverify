@@ -51,5 +51,10 @@
 			</exclusions>
 		</dependency>
 	 -->
+	<dependency>
+		<groupId>com.thoughtworks.xstream</groupId>
+		<artifactId>xstream</artifactId>
+		<version>1.4.2</version>
+	</dependency>
 	</dependencies>
 </project>

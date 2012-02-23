@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_raiseExceptionItem" structureRef="Boolean" />
+  <itemDefinition id="_faultMessageItem" structureRef="String" />
+
+  <error id="MyError" errorCode="MyError" />
+  <process processType="Private" isExecutable="true" id="ExceptionHandlerWithFaultVariable" name="ExceptionHandlerWithFaultVariable" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="raiseException" itemSubjectRef="_raiseExceptionItem"/>
+    <property id="faultMessage" itemSubjectRef="_faultMessageItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="Start" />
+    <endEvent id="_2" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <subProcess id="_3" name="Sub-Process"  >
+    <!-- nodes -->
+    <startEvent id="_3-1" name="Start" />
+    <endEvent id="_3-2" name="Error" >
+      <dataInput id="_3-2_Input" name="error" />
+      <dataInputAssociation>
+        <sourceRef>faultMessage</sourceRef>
+        <targetRef>_3-2_Input</targetRef>
+      </dataInputAssociation>
+      <inputSet>
+        <dataInputRefs>_3-2_Input</dataInputRefs>
+      </inputSet>
+      <errorEventDefinition errorRef="MyError" />
+    </endEvent>
+    <endEvent id="_3-3" name="End" />
+    <scriptTask id="_3-4" name="Print" scriptFormat="http://www.java.com/java" >
+      <script>if (raiseException) {
+	System.out.println("Raising Exception");
+	kcontext.setVariable("faultMessage", "Fault Test Message");
+}
+else
+	System.out.println("Not Raising Exception");</script>
+    </scriptTask>
+    <exclusiveGateway id="_3-5" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_3-6" name="Success" >
+      <script>System.out.println("Success Path");</script>
+    </scriptTask>
+    <scriptTask id="_3-7" name="Failure" >
+      <script>System.out.println("Fault Message = " + faultMessage);</script>
+    </scriptTask>
+    <!-- connections -->
+    <sequenceFlow id="_3-7-_3-2" sourceRef="_3-7" targetRef="_3-2" />
+    <sequenceFlow id="_3-6-_3-3" sourceRef="_3-6" targetRef="_3-3" />
+    <sequenceFlow id="_3-1-_3-4" sourceRef="_3-1" targetRef="_3-4" />
+    <sequenceFlow id="_3-4-_3-5" sourceRef="_3-4" targetRef="_3-5" />
+    <sequenceFlow id="_3-5-_3-6" sourceRef="_3-5" targetRef="_3-6" name="else" tns:priority="2" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" >eval(true)</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_3-5-_3-7" sourceRef="_3-5" targetRef="_3-7" name="exception" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return raiseException;</conditionExpression>
+    </sequenceFlow>
+    </subProcess>
+    <boundaryEvent id="_4" name="Signal" attachedToRef="_3" >
+      <errorEventDefinition errorRef="MyError" />
+    </boundaryEvent>
+    <scriptTask id="_5" name="Error" >
+      <script>System.out.println("Error Handled with message:: " + faultMessage);</script>
+    </scriptTask>
+    <endEvent id="_6" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <scriptTask id="_7" name="Success" >
+      <script>System.out.println("Success");</script>
+    </scriptTask>
+    <scriptTask id="_8" name="Input" >
+      <script>System.out.println("Raise Exception = " + raiseException);</script>
+    </scriptTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_7-_2" sourceRef="_7" targetRef="_2" />
+    <sequenceFlow id="_8-_3" sourceRef="_8" targetRef="_3" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" />
+    <sequenceFlow id="_5-_6" sourceRef="_5" targetRef="_6" />
+    <sequenceFlow id="_3-_7" sourceRef="_3" targetRef="_7" />
+    <sequenceFlow id="_1-_8" sourceRef="_1" targetRef="_8" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="ExceptionHandlerWithFaultVariable" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="16" y="67" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="936" y="64" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="282" y="17" width="507" height="178" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-1" >
+        <dc:Bounds x="304" y="63" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-2" >
+        <dc:Bounds x="724" y="93" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-3" >
+        <dc:Bounds x="727" y="30" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-4" >
+        <dc:Bounds x="399" y="65" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-5" >
+        <dc:Bounds x="516" y="64" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-6" >
+        <dc:Bounds x="607" y="31" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3-7" >
+        <dc:Bounds x="600" y="105" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="323" y="173" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="300" y="236" width="88" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="326" y="320" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="830" y="65" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="96" y="67" width="120" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_3-7-_3-2" >
+        <di:waypoint x="358" y="112" />
+        <di:waypoint x="466" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-6-_3-3" >
+        <di:waypoint x="365" y="38" />
+        <di:waypoint x="469" y="37" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-1-_3-4" >
+        <di:waypoint x="46" y="70" />
+        <di:waypoint x="157" y="72" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-4-_3-5" >
+        <di:waypoint x="157" y="72" />
+        <di:waypoint x="258" y="71" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-5-_3-6" >
+        <di:waypoint x="258" y="71" />
+        <di:waypoint x="365" y="38" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-5-_3-7" >
+        <di:waypoint x="258" y="71" />
+        <di:waypoint x="358" y="112" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_2" >
+        <di:waypoint x="870" y="89" />
+        <di:waypoint x="960" y="88" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_3" >
+        <di:waypoint x="156" y="91" />
+        <di:waypoint x="535" y="106" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="347" y="197" />
+        <di:waypoint x="344" y="263" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_6" >
+        <di:waypoint x="344" y="263" />
+        <di:waypoint x="350" y="344" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_7" >
+        <di:waypoint x="535" y="106" />
+        <di:waypoint x="870" y="89" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_8" >
+        <di:waypoint x="40" y="91" />
+        <di:waypoint x="156" y="91" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
