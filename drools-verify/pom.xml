@@ -13,6 +13,7 @@
 
 	<properties>
 		<jboss.jbpm.version>5.2.0.Final</jboss.jbpm.version>
+		<jboss.drools.version>5.3.1.Final</jboss.drools.version>
 	</properties>
 
 	<dependencies>
@@ -21,40 +22,32 @@
 			<artifactId>jbpm-flow</artifactId>
 			<version>${jboss.jbpm.version}</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.jbpm</groupId>
-			<artifactId>jbpm-bpmn2</artifactId> 
+			<artifactId>jbpm-bpmn2</artifactId>
 			<version>${jboss.jbpm.version}</version>
 		</dependency>
-		  
-	<!-- 	
+		<!-- <dependency> <groupId>org.drools</groupId> <artifactId>drools-core</artifactId> 
+			<version>5.2.1.Final</version> </dependency> <dependency> <groupId>org.drools</groupId> 
+			<artifactId>drools-compiler</artifactId> <version>5.2.1.Final</version> </dependency> -->
+
+		<!-- <dependency> <groupId>org.ow2.asm</groupId> <artifactId>asm-all</artifactId> 
+			<version>4.0</version> </dependency> -->
+
 		<dependency>
-			<groupId>org.jbpm</groupId>
-			<artifactId>jbpm-bam</artifactId>
-			<version>${jboss.jbpm.version}</version>
+			<groupId>asm</groupId>
+			<artifactId>asm-all</artifactId>
+			<version>3.3.1</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.jbpm</groupId>
-			<artifactId>jbpm-human-task</artifactId>
-			<version>${jboss.jbpm.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-seam</artifactId>
-					<groupId>org.jboss.seam</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>hibernate-entitymanager</artifactId>
-					<groupId>org.hibernate</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	 -->
-	<dependency>
-		<groupId>com.thoughtworks.xstream</groupId>
-		<artifactId>xstream</artifactId>
-		<version>1.4.2</version>
-	</dependency>
+
+
+		<!-- <dependency> <groupId>org.jbpm</groupId> <artifactId>jbpm-bam</artifactId> 
+			<version>${jboss.jbpm.version}</version> </dependency> <dependency> <groupId>org.jbpm</groupId> 
+			<artifactId>jbpm-human-task</artifactId> <version>${jboss.jbpm.version}</version> 
+			<exclusions> <exclusion> <artifactId>jboss-seam</artifactId> <groupId>org.jboss.seam</groupId> 
+			</exclusion> <exclusion> <artifactId>hibernate-entitymanager</artifactId> 
+			<groupId>org.hibernate</groupId> </exclusion> </exclusions> </dependency> 
+			<dependency> <groupId>com.thoughtworks.xstream</groupId> <artifactId>xstream</artifactId> 
+			<version>1.4.2</version> </dependency> -->
 	</dependencies>
 </project>
