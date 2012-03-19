@@ -25,16 +25,24 @@
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <scriptTask id="_2" name="Script" >
-      <script>HelloService.getInstance().sayHello(person.getName());
+      <script>HelloService.getInstance().sayHello(person.name);
+person.name = "Kai";
+kcontext.setVariable("person", person);
+
+
 			</script>
     </scriptTask>
     <endEvent id="_3" name="End" >
         <terminateEventDefinition/>
     </endEvent>
+    <scriptTask id="_4" name="Script" >
+      <script>HelloService.getInstance().sayHello(person1.name);</script>
+    </scriptTask>
 
     <!-- connections -->
     <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
-    <sequenceFlow id="_2-_3" sourceRef="_2" targetRef="_3" />
+    <sequenceFlow id="_4-_3" sourceRef="_4" targetRef="_3" />
+    <sequenceFlow id="_2-_4" sourceRef="_2" targetRef="_4" />
 
   </process>
 
@@ -49,13 +57,20 @@
       <bpmndi:BPMNShape bpmnElement="_3" >
         <dc:Bounds x="478" y="146" width="48" height="48" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="180" y="269" width="80" height="48" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="_1-_2" >
         <di:waypoint x="61" y="180" />
         <di:waypoint x="290" y="162" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_2-_3" >
-        <di:waypoint x="290" y="162" />
+      <bpmndi:BPMNEdge bpmnElement="_4-_3" >
+        <di:waypoint x="220" y="293" />
         <di:waypoint x="502" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_4" >
+        <di:waypoint x="290" y="162" />
+        <di:waypoint x="220" y="293" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

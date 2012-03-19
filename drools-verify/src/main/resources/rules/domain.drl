@@ -1,0 +1,16 @@
+package error
+dialect "mvel" 
+
+declare Domain
+	id : Long
+end
+
+rule "Recurse"
+	when 
+		$d : Domain($id : id <= 100L)
+	then
+		System.out.println("Test" + $id + ":" + $d.toString());
+		$d.id = $id + 1;
+		update($d);
+end
+
