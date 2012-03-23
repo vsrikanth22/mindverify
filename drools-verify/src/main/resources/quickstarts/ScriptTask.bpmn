@@ -13,21 +13,27 @@
              xmlns:tns="http://www.jboss.org/drools">
 
   <itemDefinition id="_personItem" structureRef="verify.jboss.jbpm.quickstarts.Person" />
+  <itemDefinition id="_mapItem" structureRef="Map" />
 
   <process processType="Private" isExecutable="true" id="com.sample.script" name="Sample Process" tns:packageName="defaultPackage" >
 
     <extensionElements>
      <tns:import name="verify.jboss.jbpm.quickstarts.HelloService" />
+     <tns:import name="java.util.Map" />
+     <tns:import name="java.util.HashMap" />
     </extensionElements>
     <!-- process variables -->
     <property id="person" itemSubjectRef="_personItem"/>
+    <property id="map" itemSubjectRef="_mapItem"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess" />
     <scriptTask id="_2" name="Script" >
       <script>HelloService.getInstance().sayHello(person.name);
 person.name = "Kai";
-kcontext.setVariable("person", person);
+map = new HashMap();
+
+kcontext.setVariable("map", map);
 
 
 			</script>
@@ -36,7 +42,8 @@ kcontext.setVariable("person", person);
         <terminateEventDefinition/>
     </endEvent>
     <scriptTask id="_4" name="Script" >
-      <script>HelloService.getInstance().sayHello(person1.name);</script>
+      <script>HelloService.getInstance().sayHello(person.name);
+map.put("test", "test");</script>
     </scriptTask>
 
     <!-- connections -->

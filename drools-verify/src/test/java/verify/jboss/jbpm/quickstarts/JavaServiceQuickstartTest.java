@@ -18,6 +18,7 @@ public class JavaServiceQuickstartTest extends JbpmUnitTestCase {
 		StatefulKnowledgeSession ksession = createKnowledgeSession("quickstarts/ScriptTask.bpmn");
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("person", new Person("krisv"));
+	
 		ksession.startProcess("com.sample.script", params);
 	}
 	
