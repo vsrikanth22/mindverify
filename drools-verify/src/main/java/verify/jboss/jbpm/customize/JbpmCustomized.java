@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import verify.jboss.jbpm.quickstarts.Person;
 
 public class JbpmCustomized {
-	
+
 	final static private Logger logger = LoggerFactory.getLogger(JbpmCustomized.class);
 
 	public static void main(String[] args) {
@@ -38,28 +38,28 @@ public class JbpmCustomized {
 				}
 			}
 		}
-		
-	  KnowledgeBase kb =	 kbuilder.newKnowledgeBase();
-	  
-	  org.drools.definition.process.Process process =((AbstractRuleBase) ((InternalKnowledgeBase) kb).getRuleBase()).getProcess("com.sample.script");
-	  
-	KnowledgeBase kb1 = KnowledgeBaseFactory.newKnowledgeBase();
-	
-	RuleFlowProcess process2 = (RuleFlowProcess)process;
-	Node[] nodes = process2.getNodes();
-	
-	for(Node node: nodes) {
-		SubProcessNode processNode = (SubProcessNode)node;
-		processNode.setProcessId("com.sample.xxx");
-	}
-	
-	((AbstractRuleBase) ((InternalKnowledgeBase) kb1).getRuleBase()).addProcess(process);
-	
-	StatefulKnowledgeSession session =  kb1.newStatefulKnowledgeSession();
-	Map<String, Object> params = new HashMap<String, Object>();
-	params.put("person", new Person("john"));
-	session.startProcess("com.sample.script", params);
-	
+
+		KnowledgeBase kb = kbuilder.newKnowledgeBase();
+
+		org.drools.definition.process.Process process = ((AbstractRuleBase) ((InternalKnowledgeBase) kb).getRuleBase())
+				.getProcess("com.sample.script");
+
+		KnowledgeBase kb1 = KnowledgeBaseFactory.newKnowledgeBase();
+
+		RuleFlowProcess process2 = (RuleFlowProcess) process;
+		Node[] nodes = process2.getNodes();
+
+		for (Node node : nodes) {
+			SubProcessNode processNode = (SubProcessNode) node;
+			processNode.setProcessId("com.sample.xxx");
+		}
+
+		((AbstractRuleBase) ((InternalKnowledgeBase) kb1).getRuleBase()).addProcess(process);
+
+		StatefulKnowledgeSession session = kb1.newStatefulKnowledgeSession();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("person", new Person("john"));
+		session.startProcess("com.sample.script", params);
 
 	}
 

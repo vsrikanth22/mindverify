@@ -51,12 +51,7 @@
 		</dependency>
 
 
-		<!-- <dependency> <groupId>org.jbpm</groupId> <artifactId>jbpm-bam</artifactId> 
-			<version>${jboss.jbpm.version}</version> </dependency> <dependency> <groupId>org.jbpm</groupId> 
-			<artifactId>jbpm-human-task</artifactId> <version>${jboss.jbpm.version}</version> 
-			<exclusions> <exclusion> <artifactId>jboss-seam</artifactId> <groupId>org.jboss.seam</groupId> 
-			</exclusion> <exclusion> <artifactId>hibernate-entitymanager</artifactId> 
-			<groupId>org.hibernate</groupId> </exclusion> </exclusions> </dependency> -->
+
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
