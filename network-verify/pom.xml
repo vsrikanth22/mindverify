@@ -10,6 +10,7 @@
 	<artifactId>network-verify</artifactId>
 	<name>network-verify</name>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>io.netty</groupId>
@@ -18,10 +19,12 @@
 			<scope>compile</scope>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.jgroups</groupId>
 			<artifactId>jgroups</artifactId>
 			<version>3.0.8.Final</version>
 		</dependency>
+
 	</dependencies>
 </project>
