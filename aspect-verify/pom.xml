@@ -12,6 +12,7 @@
 
 	<properties>
 		<aspectj.version>1.6.12</aspectj.version>
+		<jdk.version>1.6</jdk.version>
 	</properties>
 
 	<build>
