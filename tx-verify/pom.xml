@@ -9,7 +9,11 @@
 	</parent>
 	<artifactId>tx-verify</artifactId>
 	<name>Transaction Verify</name>
-
+	
+	<properties>
+		<jdk.version>1.6</jdk.version>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<artifactId>aspect-verify</artifactId>
