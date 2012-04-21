@@ -5,7 +5,7 @@ import java.net.StandardSocketOptions;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
-public class SocketChannelTest {
+public class SocketChannelApiTest {
 	
 	public static void main(String[] args) throws IOException {
 		ServerSocketChannel ssc = ServerSocketChannel.open();
@@ -19,5 +19,6 @@ public class SocketChannelTest {
 		System.out.println(tcpNoDelay);
 		System.out.println(loopback);
 	}
+	
 
 }
