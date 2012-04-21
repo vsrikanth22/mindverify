@@ -18,13 +18,8 @@
 			<artifactId>jgroups</artifactId>
 			<version>3.0.8.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-actor</artifactId>
-			<version>2.0</version>
-		</dependency>
-
-		<dependency>
+		
+		<dependency> 
 			<groupId>io.netty</groupId>
 			<artifactId>netty</artifactId>
 			<version>3.4.0.Final</version>
