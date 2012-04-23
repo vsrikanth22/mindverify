@@ -1,4 +1,4 @@
-package verify.network.nio;
+package verify.network.nio.example;
 
 import java.io.IOException;
 import java.net.InetAddress;
