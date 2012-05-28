@@ -16,6 +16,7 @@
 		<module>version-manager</module>
 		<module>drools-verify</module>
 		<module>network-verify</module>
+		<module>actor-verify</module>
 	</modules>
 
 	<properties>
