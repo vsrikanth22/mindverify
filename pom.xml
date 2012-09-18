@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.statestr.verify</groupId>
 	<artifactId>verify-parent</artifactId>
@@ -16,14 +18,15 @@
 		<module>version-manager</module>
 		<module>drools-verify</module>
 		<module>network-verify</module>
-    <module>tomcat-webapp</module>
-  </modules>
+		<module>actor-verify</module>
+		<module>tomcat-webapp</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
 		<slf4j.version>1.6.4</slf4j.version>
-		
+
 	</properties>
 
 	<build>
@@ -52,7 +55,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
@@ -72,6 +75,5 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
 
 </project>
