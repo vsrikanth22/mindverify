@@ -12,8 +12,8 @@
 
 
 	<properties>
-		<jboss.jbpm.version>5.2.0.Final</jboss.jbpm.version>
-		<jboss.drools.version>5.3.1.Final</jboss.drools.version>
+		<jboss.jbpm.version>5.4.0.Final</jboss.jbpm.version>
+		<jboss.drools.version>5.5.0.Final</jboss.drools.version>
 	</properties>
 
 	<dependencies>
