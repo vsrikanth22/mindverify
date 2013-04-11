@@ -15,11 +15,9 @@
 		<module>concurrent-verify</module>
 		<module>ioc-verify</module>
 		<module>misc-verify</module>
-		<module>version-manager</module>
 		<module>drools-verify</module>
 		<module>network-verify</module>
 		<module>actor-verify</module>
-		<module>tomcat-webapp</module>
 	</modules>
 
 	<properties>
