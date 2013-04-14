@@ -15,6 +15,7 @@ import org.drools.builder.ResourceType;
 import org.drools.builder.ResultSeverity;
 import org.drools.definition.KnowledgePackage;
 import org.drools.io.ResourceFactory;
+import org.drools.runtime.StatefulKnowledgeSession;
 
 public class FirstRuleExample {
 
@@ -24,7 +25,7 @@ public class FirstRuleExample {
 		kbuilder.add(ResourceFactory.newClassPathResource("rules/first.drl"), ResourceType.DRL);
 
 		KnowledgeBuilderResults results = kbuilder.getResults(ResultSeverity.values());
-
+		ResourceFactory.getResourceChangeNotifierService().start();
 		for (KnowledgeBuilderResult result : results) {
 			ResultSeverity severity = result.getSeverity();
 			System.out.println(severity.name());
@@ -49,8 +50,25 @@ public class FirstRuleExample {
 		
 		KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
 		kbase.addKnowledgePackages(kpkgs);
+		System.out.println(kbase.toString());
 		
 		KnowledgeAgent kagent = KnowledgeAgentFactory.newKnowledgeAgent( "MyAgent", kbase);
+		kagent.monitorResourceChangeEvents(true);
+		KnowledgeBase kbase1 =  kagent.getKnowledgeBase();
+		System.out.println(kbase1.toString());
+		
+		kagent.dispose();
+		ResourceFactory.getResourceChangeNotifierService().stop();
+		Transaction transaction = new Transaction();
+		transaction.setAmount(600000d);
+		transaction.setType("WITHDRAW");
+		
+		
+		StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+		ksession.insert(transaction);
+		
+		ksession.dispose();
+		
 	}
 
 }

@@ -13,5 +13,6 @@ rule "the not first rule"
 		not Transaction()
 	then
 		System.out.println("System can not handle non transaction object.");
+		System.out.println("Please contact administrator.");
 	end	
 	
