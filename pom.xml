@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>verify parent project</name>
-	<modules>
+	<!-- <modules>
 		<module>aspect-verify</module>
 		<module>tx-verify</module>
 		<module>messaging-verify</module>
@@ -18,7 +18,7 @@
 		<module>drools-verify</module>
 		<module>network-verify</module>
 		<module>actor-verify</module>
-	</modules>
+	</modules> -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
