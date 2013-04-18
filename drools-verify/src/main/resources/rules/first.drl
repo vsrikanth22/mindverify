@@ -2,7 +2,7 @@ package verify.jboss.drools.simple
 
 rule "the first rule"
 	when
-	 $t :	Transaction(type == "WithDraw", amount > 50000)
+	 $t :	Transaction(type == "WithDraw" && amount > 50000)
 	then
 		System.out.println("you need submit a application firstly.");
 end

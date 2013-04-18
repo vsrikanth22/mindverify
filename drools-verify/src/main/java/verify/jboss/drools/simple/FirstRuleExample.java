@@ -15,6 +15,7 @@ import org.drools.builder.ResourceType;
 import org.drools.builder.ResultSeverity;
 import org.drools.definition.KnowledgePackage;
 import org.drools.io.ResourceFactory;
+import org.drools.runtime.StatefulKnowledgeSession;
 
 public class FirstRuleExample {
 
@@ -50,7 +51,13 @@ public class FirstRuleExample {
 		KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
 		kbase.addKnowledgePackages(kpkgs);
 		
-		KnowledgeAgent kagent = KnowledgeAgentFactory.newKnowledgeAgent( "MyAgent", kbase);
+		StatefulKnowledgeSession kSession = kbase.newStatefulKnowledgeSession();
+		Transaction transaction = new Transaction();
+		transaction.setType("WithDraw");
+		transaction.setAmount(5000000d);
+		kSession.insert(transaction);
+		
+		//KnowledgeAgent kagent = KnowledgeAgentFactory.newKnowledgeAgent( "MyAgent", kbase);
 	}
 
 }

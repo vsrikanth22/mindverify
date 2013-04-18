@@ -1,0 +1,26 @@
+package  verify.jboss.drools.benchmark
+
+rule "Simple Matched"
+	salience 1000
+	dialect "java"
+	agenda-group "SimpleMatch"
+    when
+        $accounting: UseCaseTxn(
+        	getGoldCopyTxn().sourceId == 1
+        )
+        $custody: UseCaseTxn(
+						(getGoldCopyTxn().sourceId == 5
+						|| getGoldCopyTxn().sourceId == 2 || getGoldCopyTxn().sourceId == 6)
+						&& getGoldCopyTxn().fundId == $accounting.getGoldCopyTxn().fundId  									
+						&& getGoldCopyTxn().gcClassCode == $accounting.getGoldCopyTxn().gcClassCode
+						&& getGoldCopyTxn().settleCcyCd == $accounting.getGoldCopyTxn().settleCcyCd
+						&& getGoldCopyTxn().getAttrByName("AMOUNT_IN_TOLERANCE_" + $accounting.getGcGuid()) == "true"
+						&& getGoldCopyTxn().getAttrByName("DAYS_IN_TOLERANCE_" + $accounting.getGcGuid()) == "true"
+						&& getGoldCopyTxn().dbCrCd !=  $accounting.getGoldCopyTxn().dbCrCd
+						);
+        
+    then
+        retract($accounting);
+        retract($custody);
+
+end
