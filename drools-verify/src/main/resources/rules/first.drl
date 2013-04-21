@@ -1,0 +1,11 @@
+package verify.jboss.drools.simple
+
+rule "withdraw amount > 50000"
+when
+  $t1:Transaction(type == "WithDraw", amount > 50000)
+  $t2:Transaction(type == $t1.type, amount < $t1.amount)
+
+	then
+		System.out.println("you need submit a application firstly.");
+end
+
