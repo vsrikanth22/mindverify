@@ -8,7 +8,9 @@ public class BufferTest {
 	public static void main(String[] args) {
 		
 		ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+		System.out.println(byteBuffer.position());
 		byteBuffer.putChar('H').putChar('e');
+		System.out.println(byteBuffer.position());
 		byteBuffer.put((byte)1);
 		System.out.println(byteBuffer.position());
 		System.out.println(byteBuffer.limit());
